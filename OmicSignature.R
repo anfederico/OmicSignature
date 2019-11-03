@@ -8,7 +8,7 @@ check_signatures <- function(signatures) {
 check_difexp <- function(difexp) {
 }
 
-sig <- R6Class("sig", list(
+OmicSignature <- R6Class("OmicSignature", list(
     metadata   = NULL,
     signatures = NULL,
     difexp     = NULL,
@@ -20,9 +20,11 @@ sig <- R6Class("sig", list(
     print = function(...) {
         cat("Signature Object: \n")
         cat("  Metadata: \n")
-        sh <- mapply(function(k, v) cat("   ", k, "=", v, "\n"), names(self$metadata), self$metadata) 
+        sh <- mapply(function(k, v)
+            cat("   ", k, "=", v, "\n"), names(self$metadata), self$metadata)
         cat("  Signatures: \n")
-        sh <- mapply(function(k, v) cat("    ", k, " (", length(v), ")", "\n", sep=""), names(self$signatures), self$signatures)
+        sh <- mapply(function(k, v)
+            cat("    ", k, " (", length(v), ")", "\n", sep=""), names(self$signatures), self$signatures)
         cat("  Differential Expression Data: \n")
         cat("    ", nrow(self$difexp), " x ", ncol(self$difexp), "\n", sep="")
         invisible(self)
@@ -48,7 +50,7 @@ signatures <- list("Up Regulated" = filter(difexp, t > 0 & fdr < 0.001) %>% pull
                    "Dn Regulated" = filter(difexp, t < 0 & fdr < 0.001) %>% pull(symbol))
 
 # Object examples
-sig.obj <- sig$new(metadata, signatures, difexp)
+sig.obj <- OmicSignature$new(metadata, signatures, difexp)
 print(sig.obj)
 sig.obj$extract.signature('logfc > 0.5')
 sig.obj$extract.signature('logfc < -0.5; fdr < 0.001')
