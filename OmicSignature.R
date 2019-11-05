@@ -44,7 +44,8 @@ OmicCollection <- R6Class("OmicCollection", list(
         self$data <- data
     }
 ))
-
+if ( FALSE )
+{
 # Testing data
 metadata <- list("organism"  = "human",
                  "tissue"    = "cell",
@@ -63,3 +64,4 @@ print(sig.obj)
 sig.obj$extract.signature('logfc > 0.5')
 sig.obj$extract.signature('logfc < -0.5; fdr < 0.001')
 sig.obj$extract.signature('abs(logfc) > 0.5; fdr < 0.001')
+}
