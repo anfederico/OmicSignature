@@ -37,6 +37,14 @@ OmicSignature <- R6Class("OmicSignature", list(
     }
 ))
 
+OmicCollection <- R6Class("OmicCollection", list(
+    data = NULL,
+    initialize = function(data) {
+        stopifnot(lapply(data, is) == "OmicSignature")
+        self$data <- data
+    }
+))
+
 # Testing data
 metadata <- list("organism"  = "human",
                  "tissue"    = "cell",
